@@ -1,0 +1,17 @@
+{
+  "name": "renamer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "type": "module",
+  "scripts": {
+    "rename": "gulp optimization",
+    "clear": "gulp clear"
+  },
+  "devDependencies": {
+    "del": "^7.0.0",
+    "gulp": "^4.0.2",
+    "gulp-rename": "^2.0.0",
+    "speakingurl": "^14.0.1"
+  }
+}
