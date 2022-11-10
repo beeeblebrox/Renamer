@@ -14,7 +14,7 @@ import {deleteAsync} from 'del'
 
 /* Rename */
 
-function rename() {
+function renameFiles() {
   return src(`${srcFolder}/**/*.*`)
   .pipe(rename(function(path){
 
@@ -45,5 +45,5 @@ function clear() {
 
 /* Exports */
 
-export { rename, clear }
-export default series(await clear, rename)
+export { renameFiles, clear }
+export default series(await clear, renameFiles)
