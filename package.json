@@ -5,7 +5,7 @@
   "main": "gulpfile.js",
   "type": "module",
   "scripts": {
-    "rename": "gulp optimization",
+    "rename": "gulp renameFiles",
     "clear": "gulp clear"
   },
   "devDependencies": {
