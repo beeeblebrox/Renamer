@@ -1,49 +1,44 @@
 /* Vars */
 
-const srcFolder = 'src'
-const distFolder = 'dist'
+const srcFolder = 'src';
+const distFolder = 'dist';
 
 /* Modules */
 
-import pkg from 'gulp'
-const { gulp, series, parallel, src, dest, watch } = pkg
-
-import rename     from 'gulp-rename'
-import translit from 'speakingurl'
-import {deleteAsync} from 'del'
+import gulp from 'gulp';
+import rename from 'gulp-rename';
+import translit from 'speakingurl';
+import { deleteAsync } from 'del';
 
 /* Rename */
 
 function renameFiles() {
-  return src(`${srcFolder}/**/*.*`)
-  .pipe(rename(function(path){
+  return gulp.src(`${srcFolder}/**/*.*`)
+    .pipe(rename(function (path) {
+      const trlFileName = translit(path.basename, {
+        lang: 'en',
+      });
 
-    let trlFileName = translit(path.basename, {
-      lang: 'en'
-    })
+      const trlDirName = translit(path.dirname, {
+        lang: 'en',
+      });
 
-    let trlDirName = translit(path.dirname, {
-      lang: 'en'
-    })
-
-    path.basename = trlFileName
-    path.dirname = trlDirName
-    // path.dirname: "main/text/ciao"
-    // path.basename: "aloha"
-    // path.prefix: "test-"
-    // path.suffix: "-test"
-    // path.extname: ".md"
-  }))
-  .pipe(dest(distFolder))
+      path.basename = trlFileName;
+      path.dirname = trlDirName;
+    }))
+    .pipe(gulp.dest(distFolder));
 }
 
 /* Clear */
 
-function clear() {
-  return deleteAsync([distFolder])
+async function clear() {
+  await deleteAsync([distFolder]);
 }
 
 /* Exports */
 
-export { renameFiles, clear }
-export default series(await clear, renameFiles)
+export { renameFiles, clear };
+
+// Используйте функцию для корректной обработки асинхронности
+const build = gulp.series(clear, renameFiles);
+export default build;
